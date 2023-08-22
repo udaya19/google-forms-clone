@@ -1,12 +1,10 @@
 const Form = require("../models/form");
 const User = require("../models/user");
+const { userProfile } = require("../utils/userProfile");
 
 exports.addForm = async (req, res) => {
   try {
-    const user = await User.findById(req.user._id);
-    if (!user) {
-      return res.status(404).json({ success: false, error: "User not found" });
-    }
+    const user = await userProfile(req.user._id);
     const newForm = new Form();
     newForm.title = "Untitled Form";
     newForm.owner = user._id;
