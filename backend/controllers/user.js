@@ -5,6 +5,7 @@ const generateToken = require("../config/generateJwt");
 const comparePassword = require("../utils/comparePassword");
 const hashPassword = require("../utils/hashPassword");
 const { userProfile } = require("../utils/userProfile");
+const { findById } = require("../utils/findById");
 
 exports.registerUser = async (req, res) => {
   try {
@@ -57,7 +58,7 @@ exports.loginUser = async (req, res) => {
 
 exports.profile = async (req, res) => {
   try {
-    const user = await userProfile(req.user._id);
+    const user = await findById(User, req.user._id);
     return res.status(200).json({ success: true, user });
   } catch (error) {
     return res.status(500).json({
