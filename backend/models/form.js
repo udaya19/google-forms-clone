@@ -8,7 +8,6 @@ const formSchema = new mongoose.Schema(
     },
     description: {
       type: String,
-      required: true,
     },
     questions: [
       {
