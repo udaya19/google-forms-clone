@@ -13,10 +13,7 @@ function App() {
     await getUser(token);
   };
   useEffect(() => {
-    // eslint-disable-next-line no-lone-blocks
-    {
-      user && restoreUser();
-    }
+    restoreUser();
   }, []);
   return <div>{user ? <Home /> : <Login />}</div>;
 }
