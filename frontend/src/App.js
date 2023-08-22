@@ -8,16 +8,16 @@ import { AuthContext } from "./context/AuthProvider";
 
 function App() {
   const { user, getUser } = useContext(AuthContext);
-  const restoreUser = useCallback(async () => {
+  const restoreUser = async () => {
     const token = localStorage.getItem("token");
     await getUser(token);
-  }, [getUser]);
+  };
   useEffect(() => {
     // eslint-disable-next-line no-lone-blocks
     {
       user && restoreUser();
     }
-  }, [restoreUser, user]);
+  }, []);
   return <div>{user ? <Home /> : <Login />}</div>;
 }
 
