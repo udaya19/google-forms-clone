@@ -27,6 +27,21 @@ exports.addForm = async (req, res) => {
   }
 };
 
+exports.getFormById = async (req, res) => {
+  try {
+    const form = await findById(Form, req.params.id);
+    return res.status(200).json({
+      success: true,
+      form,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      error: error.message,
+    });
+  }
+};
+
 exports.updateFormTitle = async (req, res) => {
   try {
     const form = await findById(Form, req.params.id);
