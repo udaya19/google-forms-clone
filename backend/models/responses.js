@@ -10,15 +10,11 @@ const responseSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Form",
     },
-    responses: [
-      {
-        questionId: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "Questions",
-        },
-        answer: String,
-      },
-    ],
+    questionId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Questions",
+    },
+    answer: String,
   },
   {
     timestamps: true,
