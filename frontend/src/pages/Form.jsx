@@ -1,8 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { formByIdApi } from "../api/form";
 
 const Form = () => {
-  const [title, setTitle] = useState("Untitled Form");
-  const [desc, setDesc] = useState("Untitled Description");
+  const [title, setTitle] = useState("");
+  const [desc, setDesc] = useState("");
+  const { id } = useParams();
+  const getFormDetails = async (req, res) => {
+    const result = (await formByIdApi(id)).data;
+    console.log(result);
+    if (result.success) {
+      setTitle(result.form.title);
+      setDesc(result.form.description);
+    }
+  };
+  const updateTitle = async (e) => {
+    setTitle(e.target.value);
+  };
+  const updateDescription = async (e) => {
+    setDesc(e.target.value);
+  };
+  useEffect(() => {
+    getFormDetails();
+  }, []);
   return (
     <div>
       <div className=" w-[40%] mt-10 border border-t-[#673ab6] border-t-8 rounded-md ">
@@ -11,6 +31,7 @@ const Form = () => {
             type="text"
             className="focus:border-b-4 focus:border-b-[#673ab6] focus:outline-none text-2xl font-extrabold"
             value={title}
+            onChange={updateTitle}
             width="100%"
           />
         </div>
@@ -19,6 +40,7 @@ const Form = () => {
             type="text"
             className="focus:outline-none focus:border-b-[#673ab6] focus:border-b-2"
             value={desc}
+            onChange={updateDescription}
           />
         </div>
       </div>
