@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
+import FormData from "form-data";
 import { useParams } from "react-router-dom";
-import { formByIdApi } from "../api/form";
+
+import { formByIdApi, updateTitleApi } from "../api/form";
 
 const Form = () => {
   const [title, setTitle] = useState("");
@@ -15,7 +17,13 @@ const Form = () => {
     }
   };
   const updateTitle = async (e) => {
-    setTitle(e.target.value);
+    // setTitle(e.target.value);
+
+    console.log(title);
+    // const formData = new FormData();
+    // formData.append("title", title);
+    // const result = (await updateTitleApi(formData, id)).data;
+    // console.log(result);
   };
   const updateDescription = async (e) => {
     setDesc(e.target.value);
@@ -31,7 +39,8 @@ const Form = () => {
             type="text"
             className="focus:border-b-4 focus:border-b-[#673ab6] focus:outline-none text-2xl font-extrabold"
             value={title}
-            onChange={updateTitle}
+            onChange={(e) => setTitle(e.target.value)}
+            onBlur={updateTitle}
             width="100%"
           />
         </div>

@@ -44,7 +44,7 @@ exports.getFormById = async (req, res) => {
 
 exports.updateFormTitle = async (req, res) => {
   try {
-    const form = await findById(Form, req.params.id);
+    const form = await Form.findById(req.params.id);
     const { title } = req.body;
     form.title = title;
     await form.save();
