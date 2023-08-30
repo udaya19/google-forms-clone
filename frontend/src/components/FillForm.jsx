@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { formByIdApi } from "../api/form";
+import { formByIdApi, submitResponseApi } from "../api/form";
 
 const FillForm = ({ user, id }) => {
   const [form, setForm] = useState();
-  const [textarea, setTextarea] = useState("");
   const [responses, setResponses] = useState([]);
   const handleResponseChange = (questionId, answer) => {
     setResponses([
@@ -19,9 +18,11 @@ const FillForm = ({ user, id }) => {
     console.log("form", form);
     setForm(form.form);
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("responses", responses);
+    const result = (await submitResponseApi(responses, user._id, id)).data;
+    console.log(result);
   };
   useEffect(() => {
     getFormDetails();

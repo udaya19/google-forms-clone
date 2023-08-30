@@ -17,3 +17,18 @@ export const updateTitleApi = async (formData, id) =>
       Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
   });
+
+export const submitResponseApi = async (responses, userId, formId) =>
+  apiInstance.post(
+    `/responses/new-response/${formId}`,
+    {
+      userId,
+      responses,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        Accept: "application/json",
+      },
+    }
+  );
