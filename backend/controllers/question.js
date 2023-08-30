@@ -4,7 +4,7 @@ const Form = require("../models/form");
 
 exports.addQuestion = async (req, res) => {
   try {
-    const { title } = req.body;
+    const { title, questionType } = req.body;
     const form = await Form.findById(req.params.formId);
     if (!form)
       return res.status(404).json({
@@ -26,7 +26,7 @@ exports.addQuestion = async (req, res) => {
     }
     const newQuestion = new Question();
     newQuestion.title = title;
-    newQuestion.questionType = "mcq";
+    newQuestion.questionType = questionType;
     newQuestion.form = form._id;
     await newQuestion.save();
     form.questions.push(newQuestion._id);

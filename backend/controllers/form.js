@@ -29,7 +29,14 @@ exports.addForm = async (req, res) => {
 
 exports.getFormById = async (req, res) => {
   try {
-    const form = await findById(Form, req.params.id);
+    // const form = await findById(Form, req.params.id);
+    const form = await Form.findById(req.params.id).populate("questions");
+    if (!form) {
+      return res.status(404).json({
+        success: false,
+        error: "Form not found",
+      });
+    }
     return res.status(200).json({
       success: true,
       form,

@@ -65,7 +65,7 @@ const Form = () => {
           </div>
         </div>
       ) : (
-        <FillForm />
+        <FillForm id={id} user={user} />
       )}
     </div>
   );
