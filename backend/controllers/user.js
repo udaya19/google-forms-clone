@@ -58,7 +58,7 @@ exports.loginUser = async (req, res) => {
 
 exports.profile = async (req, res) => {
   try {
-    const user = await User.findById(req.user._id).populate("forms");
+    const user = await User.findById(req.user._id).populate("forms responses");
     return res.status(200).json({ success: true, user });
   } catch (error) {
     return res.status(500).json({
