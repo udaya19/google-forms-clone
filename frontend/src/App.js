@@ -15,7 +15,7 @@ function App() {
     await getUser(token);
   };
   useEffect(() => {
-    restoreUser();
+    user && restoreUser();
   }, []);
   return (
     <Routes>
