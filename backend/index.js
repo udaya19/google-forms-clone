@@ -5,8 +5,7 @@ const app = express();
 require("dotenv").config();
 require("./config/database");
 
-// app.use(bodyParser.urlencoded({ extended: true }));
-
+app.use(express.json());
 app.use(cors());
 app.use("/", require("./routes/index"));
 
