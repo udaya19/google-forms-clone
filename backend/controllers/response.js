@@ -26,6 +26,9 @@ exports.submitResponse = async (req, res) => {
     newResponse.formId = formId;
     newResponse.responses = responses;
     user.responses.push(newResponse._id);
+    form.responses.push(newResponse._id);
+    await form.save();
+    await user.save();
     await newResponse.save();
     return res.status(200).json({
       success: true,
