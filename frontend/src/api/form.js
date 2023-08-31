@@ -18,6 +18,13 @@ export const updateTitleApi = async (formData, id) =>
     },
   });
 
+export const updateDescriptionApi = async (formData, id) =>
+  apiInstance.post(`/form/update-description/${id}`, formData, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  });
+
 export const submitResponseApi = async (responses, userId, formId) =>
   apiInstance.post(
     `/responses/new-response/${formId}`,

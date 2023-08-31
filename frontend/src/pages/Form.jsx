@@ -2,7 +2,7 @@ import React, { useContext, useLayoutEffect, useState } from "react";
 import FormData from "form-data";
 import { useParams } from "react-router-dom";
 
-import { formByIdApi, updateTitleApi } from "../api/form";
+import { formByIdApi, updateDescriptionApi, updateTitleApi } from "../api/form";
 
 import { AuthContext } from "../context/AuthProvider";
 import FillForm from "../components/FillForm";
@@ -18,13 +18,16 @@ const Form = () => {
     // setTitle(e.target.value);
 
     console.log(title);
-    // const formData = new FormData();
-    // formData.append("title", title);
-    // const result = (await updateTitleApi(formData, id)).data;
-    // console.log(result);
+    const formData = new FormData();
+    formData.append("title", title);
+    const result = (await updateTitleApi(formData, id)).data;
+    console.log("Title updated:", result);
   };
   const updateDescription = async (e) => {
-    setDesc(e.target.value);
+    const formData = new FormData();
+    formData.append("description", desc);
+    const result = (await updateDescriptionApi(formData, id)).data;
+    console.log("Description updated:", result);
   };
   useLayoutEffect(() => {
     const getFormDetails = async (req, res) => {
@@ -64,7 +67,8 @@ const Form = () => {
               type="text"
               className="focus:outline-none focus:border-b-[#673ab6] focus:border-b-2"
               value={desc}
-              onChange={updateDescription}
+              onChange={(e) => setDesc(e.target.value)}
+              onBlur={updateDescription}
             />
           </div>
         </div>
