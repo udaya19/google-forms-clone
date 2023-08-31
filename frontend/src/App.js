@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useLayoutEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 
@@ -9,14 +9,21 @@ import Form from "./pages/Form";
 import { AuthContext } from "./context/AuthProvider";
 
 function App() {
+  const [loading, setLoading] = useState(true);
   const { user, getUser } = useContext(AuthContext);
-  const restoreUser = async () => {
+
+  useLayoutEffect(() => {
     const token = localStorage.getItem("token");
-    await getUser(token);
-  };
-  useEffect(() => {
-    localStorage.getItem("token") && restoreUser();
+    setLoading(true);
+    const restoreUser = async () => {
+      await getUser(token);
+      setLoading(false);
+    };
+    token ? restoreUser() : setLoading(false);
   }, []);
+  if (loading) {
+    return <div>Loading...</div>;
+  }
   return (
     <Routes>
       <Route path="/login" element={!user ? <Login /> : <Home />} />

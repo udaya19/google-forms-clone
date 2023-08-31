@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useLayoutEffect, useState } from "react";
 import FormData from "form-data";
 import { useParams } from "react-router-dom";
 
@@ -13,19 +13,7 @@ const Form = () => {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const { id } = useParams();
-  const getFormDetails = async (req, res) => {
-    const result = (await formByIdApi(id)).data;
-    console.log(result);
-    if (result.success) {
-      setTitle(result.form.title);
-      setDesc(result.form.description);
-    }
-  };
-  const validateFormOwner = () => {
-    const isOwner = user.forms.some((form) => form._id === id);
-    isOwner ? setIsFormOwner(true) : setIsFormOwner(false);
-    console.log(isOwner);
-  };
+
   const updateTitle = async (e) => {
     // setTitle(e.target.value);
 
@@ -38,7 +26,22 @@ const Form = () => {
   const updateDescription = async (e) => {
     setDesc(e.target.value);
   };
-  useEffect(() => {
+  useLayoutEffect(() => {
+    const getFormDetails = async (req, res) => {
+      const result = (await formByIdApi(id)).data;
+      console.log(result);
+      if (result.success) {
+        setTitle(result.form.title);
+        setDesc(result.form.description);
+      }
+    };
+
+    const validateFormOwner = () => {
+      const isOwner = user.forms.some((form) => form._id === id);
+      isOwner ? setIsFormOwner(true) : setIsFormOwner(false);
+      console.log(isOwner);
+    };
+
     getFormDetails();
     validateFormOwner();
   }, []);

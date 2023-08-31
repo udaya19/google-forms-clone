@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useLayoutEffect, useState } from "react";
 
 import { AuthContext } from "../context/AuthProvider";
 
@@ -10,7 +10,7 @@ const Home = () => {
   const [userForms, setUserForms] = useState([]);
   const { user, logOut } = useContext(AuthContext);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     console.log("User", user);
     setUserForms(user.forms);
   }, [user]);

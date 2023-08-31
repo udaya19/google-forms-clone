@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import { formByIdApi, submitResponseApi } from "../api/form";
 import { useNavigate } from "react-router-dom";
 
@@ -34,7 +34,7 @@ const FillForm = ({ user, id }) => {
     );
     setFormFilled(hasFilledForm);
   };
-  useEffect(() => {
+  useLayoutEffect(() => {
     getFormDetails();
     console.log("User", user);
     setFormPermission();
