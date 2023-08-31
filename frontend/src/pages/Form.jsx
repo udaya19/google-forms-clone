@@ -22,8 +22,9 @@ const Form = () => {
     }
   };
   const validateFormOwner = () => {
-    const isOwner = user.forms.includes(id);
+    const isOwner = user.forms.some((form) => form._id === id);
     isOwner ? setIsFormOwner(true) : setIsFormOwner(false);
+    console.log(isOwner);
   };
   const updateTitle = async (e) => {
     // setTitle(e.target.value);
